@@ -41,9 +41,25 @@ class ZComponent extends HTMLElement {
       let shadowRoot = this.attachShadow({mode: 'open'})
       shadowRoot.innerHTML = shadow
     }
-    let proto = Object.getPrototypeOf(this)
-    let descs = Object.getOwnPropertyDescriptors(proto)
-    let _keys = Object.keys(descs).filter(k => descs[k].set)
+    let _keys = []
+    let parseProto = obj => {
+      let proto = Object.getPrototypeOf(obj)
+      if (proto === ZComponent) return
+
+      let descs = Object.getOwnPropertyDescriptors(proto)
+      let __keys = Object.keys(descs).filter(k => descs[k].set)
+
+      /* This is a hack, and I would prefer a different detection method.
+         The problem is that the entire proto chain is just "HTMLElement"
+         and the polyfills for WebComponents complicate things a bit.
+         I tried other detection methods but this was the best I could do.
+      */
+      if (!__keys.includes('_zcomponentSetterIdentifier')) {
+        _keys = _keys.concat(__keys)
+        parseProto(proto)
+      }
+    }
+    parseProto(this)
     observer(this, attributes => {
       for (let key in attributes) {
         if (_keys.indexOf(key) !== -1) {
@@ -74,6 +90,8 @@ class ZComponent extends HTMLElement {
   }
   set shadow (shadow) {
     this.shadowRoot.innerHTML = shadow
+  }
+  set _zcomponentSetterIdentifier (value) {
   }
 }
 
