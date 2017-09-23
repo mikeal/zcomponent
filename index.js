@@ -71,7 +71,11 @@ class ZComponent extends HTMLElement {
     each(this.attributes, node => {
       let key = node.name
       if (_keys.indexOf(key) !== -1) {
-        this[key] = node.nodeValue
+        // Ensure subclass constructor has finished
+        // before setting properties w/ setTimeout.
+        setTimeout(() => {
+          this[key] = node.nodeValue
+        }, 0)
       }
       constructedKeys.push(key)
     })
