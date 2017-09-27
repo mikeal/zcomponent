@@ -11,7 +11,7 @@ WebComponent base class for building custom HTML elements.
 ```javascript
 const ZComponent = require('zcomponent')
 
-class MyElement extends ZComonent {
+class MyElement extends ZComponent {
   set customProperty (value) {
     console.log(value)
   }
