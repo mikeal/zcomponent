@@ -1,5 +1,7 @@
 # ZComponent
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/mikeal/zcomponent.svg)](https://greenkeeper.io/)
+
 WebComponent base class for building custom HTML elements.
 
 <p>
