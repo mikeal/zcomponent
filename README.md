@@ -11,7 +11,7 @@ WebComponent base class for building custom HTML elements.
 ```javascript
 const ZComponent = require('zcomponent')
 
-class MyElement extends ZComonent {
+class MyElement extends ZComponent {
   set customProperty (value) {
     console.log(value)
   }
@@ -38,7 +38,7 @@ you to set the initial shadow DOM by adding a getter for the shadow property.
 ```javascript
 const ZComponent = require('zcomponent')
 
-class MyElement extends ZComonent {
+class MyElement extends ZComponent {
   get shadow () {
     return `
     <style>
@@ -59,7 +59,7 @@ the current shadow dom.
 ```javascript
 const ZComponent = require('zcomponent')
 
-class MyElement extends ZComonent {
+class MyElement extends ZComponent {
   set myCustomShadowCSS (cssString) {
     this.shadow = `<style>${cssString}</style><slot></slot>`
   }
